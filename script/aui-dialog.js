@@ -5,6 +5,13 @@
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
+
+/*
+	Add param 'el' for query the correct input..
+	Edited by Eaves
+	E-mail: eavesmy@gmail.com
+*/
+
 (function( window, undefined ) {
     "use strict";
     var auiDialog = function() {
@@ -15,7 +22,8 @@
             title:'',
             msg:'',
             buttons: ['取消','确定'],
-            input:false
+            input:false,
+			el: 'dialog-input'
         },
         create: function(params,callback) {
         	var self = this;
@@ -24,7 +32,7 @@
             var headerHtml = params.title ? '<div class="aui-dialog-header">' + params.title + '</div>' : '<div class="aui-dialog-header">' + self.params.title + '</div>';
             if(params.input){
                 params.text = params.text ? params.text: '';
-                var msgHtml = '<div class="aui-dialog-body"><input type="text" placeholder="'+params.text+'"></div>';
+                var msgHtml = '<div class="aui-dialog-body"><input type="text" placeholder="'+params.text+' id='+params.el+'"></div>';
             }else{
                 var msgHtml = params.msg ? '<div class="aui-dialog-body">' + params.msg + '</div>' : '<div class="aui-dialog-body">' + self.params.msg + '</div>';
             }
@@ -46,7 +54,7 @@
                             if(params.input){
                                 callback({
                                     buttonIndex: parseInt(this.getAttribute("button-index"))+1,
-                                    text: document.querySelector("input").value
+                                    text: document.querySelector("#" + params.el).value
                                 });
                             }else{
                                 callback({
